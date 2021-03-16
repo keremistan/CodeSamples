@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { SliderButtons } from '../components/SliderButtons'
+import { SliderButtonsBlogPost } from '../components/SliderButtonsBlogPost'
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <SliderButtons />
+        <SliderButtonsBlogPost />
       </main>
 
     </div>
