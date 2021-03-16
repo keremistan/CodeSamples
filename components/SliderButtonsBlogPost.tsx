@@ -1,19 +1,8 @@
 import { Button, makeStyles } from '@material-ui/core';
-import styles from './SliderButtonsBlogPost.module.scss'
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { MouseEvent } from 'react';
+import { get10RandomColors } from '../utils';
+import { PlaceHolder } from './PlaceHolder';
+import { RightSliderButton, LeftSliderButton } from './SliderButton';
 
-const PIXELS_TO_BE_SLIDED = 500;
-
-type IContentSimulator = {
-  color: string;
-}
-
-type ISliderButton = {
-  toRight: boolean;
-  className: string;
-}
 
 const useStyles = makeStyles({
   sampleWrapper: {
@@ -22,10 +11,6 @@ const useStyles = makeStyles({
     overflowX: 'scroll',
     width: '50rem',
     scrollBehavior: 'smooth'
-  },
-  contentSimulator: {
-    width: '16rem',
-    height: '9rem'
   },
   fixedToPageWrapper: {
     position: 'relative',
@@ -47,105 +32,53 @@ const useStyles = makeStyles({
     '&__leftButton': {
       position: 'absolute',
       left: 0,
-    },    
+    },
   },
   absPosedSliderBtn: {
     position: 'absolute'
   },
+  correctSlidersWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    '&__rightButton': {
+      right: '4rem',
+    },
+    '&__leftButton': {
+      left: '4rem',
+    },
+  }
 });
 
 export function SliderButtonsBlogPost() {
-
-  /**
-   ** TODOs:*
-   ** 1. position fixed, sayfa kenarlarina yapisan*
-   ** 2. position absolute ile alanla ile beraber scroll olan*
-   ** 3. scrollable area'ya sibling olup, istenildigi gibi hareket eden butonlar*
-   **/
-
   const classes = useStyles();
-
-  const colors1 = Array.from({ length: 10 }, () => getRandomColor());
-  const colors2 = Array.from({ length: 10 }, () => getRandomColor());
 
   return (
     <section className="buttonSamplesWrapper">
+      <h1>Fixed Positions</h1>
       <div className={`${classes.fixedToPageWrapper} ${classes.sampleWrapper}`}>
         <LeftSliderButton className={`${classes.fixedToPageWrapper}__leftButton`} />
-        {colors1.map(color => {
-          return <ContentSimulator color={color} />
+        {get10RandomColors().map(color => {
+          return <PlaceHolder color={color} />
         })}
         <RightSliderButton className={`${classes.fixedToPageWrapper}__rightButton`} />
       </div>
       <br />
+      <h1>Absolute Positions</h1>
       <div className={`${classes.absPosedWrapper} ${classes.sampleWrapper}`} >
         <LeftSliderButton className={`${classes.absPosedWrapper}__leftButton`} />
-        {colors2.map(color => <ContentSimulator color={color} />)}
+        {get10RandomColors().map(color => <PlaceHolder color={color} />)}
         <RightSliderButton className={`${classes.absPosedWrapper}__rightButton`} />
+      </div>
+      <br />
+      <h1>Flexed Positions</h1>
+      <div className={`${classes.correctSlidersWrapper}`} >
+        <LeftSliderButton className={`${classes.correctSlidersWrapper}__leftButton`} />
+        <div className={`${classes.sampleWrapper}`}>
+          {get10RandomColors().map(color => <PlaceHolder color={color} />)}
+        </div>
+        <RightSliderButton className={`${classes.correctSlidersWrapper}__rightButton`} />
       </div>
     </section>
   );
 
-}
-
-function ContentSimulator({
-  color
-}: IContentSimulator) {
-  const classes = useStyles();
-
-  return (
-    <div>
-      <div className={classes.contentSimulator} style={{ backgroundColor: color }} />
-    </div>
-  )
-}
-
-function getRandomColor(): string {
-  // source: https://stackoverflow.com/a/5365036/6656967
-  return "#" + ((1 << 24) * Math.random() | 0).toString(16);
-}
-
-function RightSliderButton({ className }: { className: string }) {
-  return <SliderButton toRight={true} className={className} />
-}
-
-function LeftSliderButton({ className }: { className: string }) {
-  return <SliderButton toRight={false} className={className} />
-
-}
-
-function SliderButton({
-  toRight,
-  className
-}: ISliderButton) {
-  const classes = useStyles();
-
-  const sliderHandler = (e: MouseEvent) => {
-    const target = e.currentTarget;
-    const scrollableContent = target.closest(`.${classes.sampleWrapper}`);
-
-    if (scrollableContent) {
-      if (toRight) {
-        scrollableContent.scrollLeft += PIXELS_TO_BE_SLIDED;
-      } else {
-        scrollableContent.scrollLeft -= PIXELS_TO_BE_SLIDED;
-      }
-    }
-
-  }
-
-  return (
-    <div className={"sliderButtonWrapper " + className}>
-      <Button
-        variant='contained'
-        color='primary'
-        onClick={event => sliderHandler(event)}
-      >
-        {toRight
-          ? <ArrowForwardIosIcon />
-          : <ArrowBackIosIcon />
-        }
-      </Button>
-    </div>
-  );
 }
