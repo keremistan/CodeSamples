@@ -25,8 +25,18 @@ function SliderButton({
 }: ISliderButton) {
 
     const sliderHandler = (e: MouseEvent) => {
+        let scrollableContent: Element;
         const target = e.currentTarget;
-        const scrollableContent = target.closest(`div[class*=sampleWrapper]`);
+        const parentSliderWrapperAddress: string = 'div[class*=sampleWrapper]';
+        const isItSiblingImplementation: boolean = className.includes('correctSlidersWrapper');
+
+        if (isItSiblingImplementation) {
+            scrollableContent = className.includes('right')
+                ? target.previousElementSibling
+                : target.nextElementSibling;
+        } else {
+            scrollableContent = target.closest(parentSliderWrapperAddress);
+        }
 
         if (scrollableContent) {
             if (toRight) {
@@ -35,22 +45,6 @@ function SliderButton({
                 scrollableContent.scrollLeft -= PIXELS_TO_BE_SLIDED;
             }
         }
-    }
-
-    const sliderHandlerForCorrectImplementation = (e: MouseEvent) => {
-        const target = e.currentTarget;
-        const scrollableContent = className.includes('right')
-            ? target.previousElementSibling
-            : target.nextElementSibling;
-
-        if (scrollableContent) {
-            if (toRight) {
-                scrollableContent.scrollLeft += PIXELS_TO_BE_SLIDED;
-            } else {
-                scrollableContent.scrollLeft -= PIXELS_TO_BE_SLIDED;
-            }
-        }
-
     }
 
     return (
@@ -58,10 +52,7 @@ function SliderButton({
             className={"sliderButtonWrapper " + className}
             variant='contained'
             color='primary'
-            onClick={event => className.includes('correctSlidersWrapper')
-                ? sliderHandlerForCorrectImplementation(event)
-                : sliderHandler(event)
-            }
+            onClick={event => sliderHandler(event)}
         >
             {toRight
                 ? <ArrowForwardIosIcon />
