@@ -8,8 +8,10 @@ const useStyles = makeStyles({
     placeHolder: {
         width: '16rem',
         height: '9rem'
-    },
-});
+    }
+},
+    { name: 'MuiContent' },
+);
 
 export function PlaceHolder({
     color

@@ -16,7 +16,6 @@ export function RightSliderButton({ className }: { className: string }) {
 
 export function LeftSliderButton({ className }: { className: string }) {
     return <SliderButton toRight={false} className={className} />
-
 }
 
 function SliderButton({

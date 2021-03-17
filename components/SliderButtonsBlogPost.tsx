@@ -47,7 +47,7 @@ const useStyles = makeStyles({
       left: '4rem',
     },
   }
-});
+}, {name: 'MuiBlogPost'});
 
 export function SliderButtonsBlogPost() {
   const classes = useStyles();
