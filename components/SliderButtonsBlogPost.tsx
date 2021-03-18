@@ -59,7 +59,7 @@ export function SliderButtonsBlogPost() {
 
   return (
     <section className={classes.buttonSamplesWrapper}>
-      <h1>Fixed Positions</h1>
+      <h1>Fixed Positioning</h1>
       <div className={`${classes.fixedToPageWrapper} ${classes.sampleWrapper}`}>
         <LeftSliderButton className={`${classes.fixedToPageWrapper}__leftButton`} />
         {get10RandomColors().map(color => <Color colorName={color} />)}
@@ -68,7 +68,7 @@ export function SliderButtonsBlogPost() {
 
       <br />
 
-      <h1>Absolute Positions</h1>
+      <h1>Absolute Positioning</h1>
       <div className={`${classes.absPosedWrapper} ${classes.sampleWrapper}`} >
         <LeftSliderButton className={`${classes.absPosedWrapper}__leftButton`} />
         {get10RandomColors().map(color => <Color colorName={color} />)}
@@ -77,7 +77,7 @@ export function SliderButtonsBlogPost() {
 
       <br />
 
-      <h1>Flexed Positions</h1>
+      <h1>Absolute Positioning with HTML Correction</h1>
       <div className={`${classes.correctSlidersWrapper}`} >
         <LeftSliderButton className={`${classes.correctSlidersWrapper}__leftButton`} />
         <div className={`${classes.sampleWrapper}`}>
