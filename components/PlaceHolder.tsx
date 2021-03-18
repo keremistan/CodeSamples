@@ -1,11 +1,11 @@
 import { makeStyles } from "@material-ui/core";
 
-type IPlaceHolder = {
-    color: string;
+type IColor = {
+    colorName: string;
 }
 
 const useStyles = makeStyles({
-    placeHolder: {
+    color: {
         width: '16rem',
         height: '9rem'
     }
@@ -13,14 +13,14 @@ const useStyles = makeStyles({
     { name: 'MuiContent' },
 );
 
-export function PlaceHolder({
-    color
-}: IPlaceHolder) {
+export function Color({
+    colorName
+}: IColor) {
     const classes = useStyles();
 
     return (
         <div>
-            <div className={classes.placeHolder} style={{ backgroundColor: color }} />
+            <div className={classes.color} style={{ backgroundColor: colorName }} />
         </div>
     )
 }
